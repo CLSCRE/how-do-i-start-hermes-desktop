@@ -1,0 +1,6 @@
+body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin: 2rem; color: #111 }
+main { max-width: 680px }
+.calc-root { border: 1px solid #ddd; padding: 1rem; border-radius: 6px }
+label { display:block; margin: .5rem 0 }
+#calc-result { margin-top: .75rem; font-weight: 600 }
+footer { margin-top: 1.5rem; color: #666 }

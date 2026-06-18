@@ -1,0 +1,101 @@
+{
+  "exportFormatVersion": 2,
+  "containerVersion": {
+    "container": {
+      "publicId": "GTM-PH6TD3TC",
+      "name": "CLS CRE - Suggested Container",
+      "path": "accounts/000000000/containers/GTM-PH6TD3TC"
+    },
+    "tag": [
+      {
+        "name": "GA4 - Configuration",
+        "type": "ga4_config",
+        "parameter": [
+          { "key": "measurementId", "value": "G-1S9151E1ZM" }
+        ],
+        "firingTriggerId": ["2147479550"]
+      },
+      {
+        "name": "GA4 - phone_click",
+        "type": "ga4_event",
+        "parameter": [
+          { "key": "eventName", "value": "phone_click" }
+        ],
+        "firingTriggerId": ["2147479551"]
+      },
+      {
+        "name": "GA4 - lead_form_submit",
+        "type": "ga4_event",
+        "parameter": [
+          { "key": "eventName", "value": "lead_form_submit" },
+          { "key": "eventParams", "value": "{\\"form\\": {{Form ID}}, \\\"loan_amount\\\": {{Loan Amount}} }" }
+        ],
+        "firingTriggerId": ["2147479552"]
+      },
+      {
+        "name": "GA4 - apply_click",
+        "type": "ga4_event",
+        "parameter": [
+          { "key": "eventName", "value": "apply_click" }
+        ],
+        "firingTriggerId": ["2147479553"]
+      }
+    ],
+    "trigger": [
+      {
+        "triggerId": "2147479550",
+        "name": "All Pages",
+        "type": "PAGEVIEW",
+        "filter": []
+      },
+      {
+        "triggerId": "2147479551",
+        "name": "Click - Telephone",
+        "type": "CLICK",
+        "filter": [
+          {
+            "type": "MATCH_REGEX",
+            "parameter": [
+              { "key": "arg0", "value": "{{Click URL}}" },
+              { "key": "arg1", "value": "^tel:" }
+            ]
+          }
+        ]
+      },
+      {
+        "triggerId": "2147479552",
+        "name": "Form Submit - Prequal",
+        "type": "FORM_SUBMIT",
+        "filter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              { "key": "arg0", "value": "{{Form ID}}" },
+              { "key": "arg1", "value": "prequalForm" }
+            ]
+          }
+        ]
+      },
+      {
+        "triggerId": "2147479553",
+        "name": "Click - Apply CTA",
+        "type": "CLICK",
+        "filter": [
+          {
+            "type": "MATCH_CSS_SELECTOR",
+            "parameter": [
+              { "key": "arg0", "value": "{{Click Element}}" },
+              { "key": "arg1", "value": "[data-cta=apply]" }
+            ]
+          }
+        ]
+      }
+    ],
+    "variable": [
+      { "name": "Click URL", "type": "CLICK_URL" },
+      { "name": "Click Element", "type": "CLICK_ELEMENT" },
+      { "name": "Form ID", "type": "FORM_ID" },
+      { "name": "Loan Amount", "type": "CONSTANT", "parameter": [{ "key": "value", "value": "{{Loan Amount Variable}}" }] }
+    ]
+  }
+}
