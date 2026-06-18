@@ -28,7 +28,7 @@
         "type": "ga4_event",
         "parameter": [
           { "key": "eventName", "value": "lead_form_submit" },
-          { "key": "eventParams", "value": "{\\"form\\": {{Form ID}}, \\\"loan_amount\\\": {{Loan Amount}} }" }
+          { "key": "eventParams", "value": "{\\\"form\\\": {{Form ID}}, \\\"loan_amount\\\": {{Loan Amount}} }" }
         ],
         "firingTriggerId": ["2147479552"]
       },
