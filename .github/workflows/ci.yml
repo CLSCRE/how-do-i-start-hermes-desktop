@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate HTML
+        run: |
+          echo "No HTML linter configured — quick check: ensure index.html exists" 
+          test -f index.html
+      - name: Validate JS
+        run: |
+          echo "No JS build step — ensure js/calculator.bundle.js exists"
+          test -f js/calculator.bundle.js
