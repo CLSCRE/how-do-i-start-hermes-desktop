@@ -1,16 +1,28 @@
 # how-do-i-start-hermes-desktop
 
-Small static demo: Deal Analyzer
+Minimal static demo: Deal Analyzer calculator deployed to Vercel.
 
-This repository contains a minimal static site demo used in a Hermes Agent walkthrough. It estimates monthly interest for a given loan amount and interest rate.
+Live demo: https://how-do-i-start-hermes-desktop.vercel.app
 
-Files
-- index.html — main page
-- styles.css — basic styling
-- js/calculator.bundle.js — small JS bundle that initializes the calculator
+## What this repo contains
+- index.html — single-page demo
+- styles.css — minimal styles
+- js/calculator.bundle.js — small JS bundle that initializes the calculator UI
 
-Deploy
-- Deployed to Vercel: https://how-do-i-start-hermes-desktop.vercel.app
+## Run locally
+Open index.html in a browser (no build tools required):
 
-License
-- MIT
+1. git clone https://github.com/CLSCRE/how-do-i-start-hermes-desktop.git
+2. open index.html in your browser
+
+Or run a quick static server with Python:
+
+python -m http.server 8000
+
+Then visit http://localhost:8000
+
+## Deployment
+This repo is configured to deploy to Vercel via GitHub Actions on push to main.
+
+## License
+MIT — see LICENSE
