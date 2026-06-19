@@ -6,6 +6,15 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
+    inputs:
+      vercel_args:
+        description: 'Extra args to pass to vercel (overrides default)'
+        required: false
+        default: "--prod"
+      environment:
+        description: 'Deployment environment (prod|preview)'
+        required: false
+        default: 'prod'
 
 jobs:
   build-and-deploy:
@@ -27,6 +36,40 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
+          vercel-args: ${{ github.event.inputs.vercel_args || '--prod' }}
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+      - name: Smoke test production
+        run: |
+          URL="https://how-do-i-start-hermes-desktop.vercel.app"
+          echo "Pinging $URL"
+          status=$(curl -o /dev/null -s -w "%{http_code}\n" "$URL")
+          echo "HTTP status: $status"
+          if [ "$status" -ne 200 ]; then
+            echo "Smoke test failed: HTTP $status"
+            exit 1
+          fi
+
+  lighthouse:
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Lighthouse
+        run: npm install -g lighthouse@10 || true
+
+      - name: Run Lighthouse (production)
+        run: |
+          URL="https://how-do-i-start-hermes-desktop.vercel.app"
+          lighthouse "$URL" --output=json --output-path=./lighthouse-report.json || true
+
+      - name: Upload Lighthouse report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: ./lighthouse-report.json
